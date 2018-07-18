@@ -1,0 +1,41 @@
+version: "3"
+
+services:
+  geoserver:
+    image: geoserver
+    build: ./geoserver
+    command: /start.sh
+    volumes:
+      - geoserver-volume:/data/geoserver
+      - $PWD/geoserver/start.sh:/start.sh
+    depends_on:
+      - postgis
+    restart: always
+
+  geowebcache:
+    image: geowebcache
+    build: ./geowebcache
+    command: /start.sh
+    volumes:
+      - geowebcache-volume:/data/geowebcache
+      - $PWD/geowebcache/start.sh:/start.sh
+      - $PWD/geowebcache/gwc-core.xml:/usr/local/tomcat/webapps/geowebcache/WEB-INF/geowebcache-core-context.xml
+    depends_on:
+      - geoserver
+    restart: always
+
+  postgis:
+    image: postgis
+    build: ./postgis
+    volumes:
+      - postgis-volume:/var/lib/postgresql/data
+    restart: always
+
+volumes:
+  geoserver-volume:
+  geowebcache-volume:
+  postgis-volume:
+
+networks:
+  default:
+    driver: bridge

@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+  glibc-alpine:
+    image: glibc-alpine
+    build: ./glibc-alpine
+
+  java-alpine:
+    image: java-alpine
+    build: ./java-alpine
+    depends_on:
+      - glibc-alpine
+
+  tomcat-alpine:
+    image: tomcat-alpine
+    build: ./tomcat-alpine
+    depends_on:
+      - java-alpine
+
+  geoserver:
+    depends_on:
+      - tomcat-alpine
+
+  geowebcache:
+    depends_on:
+      - tomcat-alpine

@@ -1,0 +1,24 @@
+--- gwc-core.xml	2018-01-01 00:00:00.000000000 +0000
++++ gwc-core.xml	2018-01-01 00:00:00.000000000 +0000
+@@ -34,10 +34,10 @@
+        that are appended to every WMS request to the backed, for example:
+        "format_options=regionate_by:auto&amp;bgcolor=0x112233"
+        -->
+-  <!--bean id="gwcWMSConfig" class="org.geowebcache.config.GetCapabilitiesConfiguration">
++  <bean id="gwcWMSConfig" class="org.geowebcache.config.GetCapabilitiesConfiguration">
+   	<constructor-arg ref="gwcGridSetBroker">
+     </constructor-arg>
+-    <constructor-arg value="http://demo.mapserver.org/cgi-bin/mapserv?map=/osgeo/mapserver/msautotest/world/world.map&amp;SERVICE=WMS&amp;VERSION=1.1.1&amp;REQUEST=GetCapabilities">
++    <constructor-arg value="http://geoserver:8080/geoserver/wms?SERVICE=WMS&amp;VERSION=1.1.1&amp;REQUEST=GetCapabilities">
+       <description>The URL to the WMS GetCapabilities document, notice &amp; , port is normally 8080</description>
+     </constructor-arg>
+     <constructor-arg value="image/png">
+@@ -61,7 +61,7 @@
+       <description>The configuration object with the global defaults to use for new layers</description>
+     </property>
+ 
+-  </bean-->
++  </bean>
+ 
+   <!-- For each configuration bean above, add them below to activate -->
+   <bean id="gwcTLDispatcher" class="org.geowebcache.layer.TileLayerDispatcher">
